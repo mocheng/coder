@@ -12,6 +12,8 @@
 - Handle large codebases efficiently
 - Show per-file and summary results
 
+## Ready
+
 ### K010: Git Integration for Code Review
 **Description:** Add git-aware code review for changes and diffs
 **Acceptance Criteria:**
@@ -21,8 +23,6 @@
 - Parse git diff output and focus review on changed lines
 - Show context around changed code
 - Integrate with existing line-specific feedback system
-
-## Ready
 
 ## In Progress
 
