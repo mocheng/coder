@@ -52,6 +52,19 @@ Work items are tracked in markdown files:
 
 **Trigger:** User requests code execution and Ready column has tasks
 
+### 3. Completion Process (On User Approval)
+**Purpose:** Finalize completed work with proper version control
+
+**Steps:**
+1. **Move to Done** - Update KANBAN board from Review to Done
+2. **Git Commit** - Commit all changes with descriptive message
+   - Format: `feat: [TaskID] Task Title`
+   - Example: `feat: [K002] Basic CLI Structure`
+   - Include all modified/created files
+3. **Confirm Completion** - Notify user of commit and completion
+
+**Trigger:** User approves work in Review column
+
 ### Code Standards
 - **Minimal viable code** - Write only what's needed
 - **LLM-first approach** - Let LLM handle complex analysis
