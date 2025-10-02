@@ -69,7 +69,7 @@ Work items are tracked in markdown files:
 4. **Design** - Plan minimal implementation approach
 5. **Implement** - Write essential code only
 6. **Write Tests** - Create comprehensive unit tests for all new functionality
-7. **Verify** - Test functionality works and all tests pass
+7. **Verify** - Test functionality works and all tests pass with minimum 80% coverage
 8. **Move to Review** - Present working result to user
 9. **Ask for Confirmation** - Explicitly ask user for approval to move to Done
 
@@ -121,7 +121,8 @@ Work items are tracked in markdown files:
 - **Iterative refinement** - Improve based on feedback
 - **Clean structure** - Maintain clear separation of concerns
 - **Comprehensive testing** - Every feature must include unit tests
-- **Test coverage** - Aim for minimum 80% coverage on new code
+- **Test coverage** - Minimum 80% coverage required for all code
+- **Coverage verification** - All test runs must show coverage and enforce 80% minimum
 - **Test organization** - Follow tests/ directory structure mirroring src/
 
 ### Decision Making

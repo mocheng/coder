@@ -16,42 +16,70 @@ Build a command-line tool that leverages LLM capabilities to assist with code re
 ## High-Level Architecture
 
 ```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   CLI Interface │────│  Core Agent     │────│  LLM Client     │
-│   (click/argparse)   │  (orchestration)│    │  (litellm)      │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                              │
-                       ┌─────────────────┐
-                       │  Tool Operations│
-                       │  (file/git/etc) │
-                       └─────────────────┘
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│   CLI Interface │────│  Input Parser   │────│ Source Collector│────│Review Orchestrator│
+│   (main.py)     │    │                 │    │                 │    │                 │
+└─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
+                                                                              │
+┌─────────────────┐    ┌─────────────────┐                                   │
+│Results Formatter│────│  Code Context   │                                   │
+│                 │    │   Display       │                                   │
+└─────────────────┘    └─────────────────┘                                   │
+                                                                              │
+                       ┌─────────────────┐    ┌─────────────────┐            │
+                       │  Tool Operations│    │   LLM Client    │────────────┘
+                       │                 │    │   (litellm)     │
+                       └─────────────────┘    └─────────────────┘
 ```
 
 ## Component Responsibilities
 
-### CLI Interface
-- Parse command-line arguments
-- Validate user input
-- Display results and errors
-- Handle user interactions
+### CLI Interface (main.py)
+- Parse command-line arguments with typer
+- Coordinate workflow between modular components
+- Handle user interactions and error display
+- Maintain backward compatibility with existing interface
 
-### Core Agent
-- Orchestrate workflow between components
-- Manage conversation context
-- Apply business logic and safety checks
-- Format prompts for LLM
+### Input Parser (input_parser.py)
+- Parse and validate single file input
+- Provide structured input validation
+- Extensible for future input types (directories, git)
+- Clean error handling and reporting
 
-### LLM Client
+### Source Collector (source_collector.py)
+- Collect source code content from single file
+- Provide file metadata (size, lines, path)
+- Handle file reading errors gracefully
+- Extensible for future source types
+
+### Review Orchestrator (review_orchestrator.py)
+- Manage single file code review workflow
+- Coordinate with LLM client for reviews
+- Handle LLM errors and provide fallback
+- Extensible for multi-file orchestration
+
+### Results Formatter (results_formatter.py)
+- Format and display review results with rich
+- Show file information and progress messages
+- Display review results with markdown formatting
+- Integrate with code context display system
+
+### LLM Client (llm_client.py)
 - Abstract LLM provider differences
 - Handle API calls and retries
 - Manage model configuration
 - Process responses
 
-### Tool Operations
+### Code Context Display (code_context.py)
+- Parse line-specific feedback from LLM responses
+- Display code snippets with syntax highlighting
+- Show context around problematic lines
+- Integrate with rich formatting system
+
+### Tool Operations (tool_ops.py)
 - File reading/writing operations
-- Git command execution
-- Directory traversal
-- System command execution
+- Text file detection and encoding handling
+- Basic file system utilities
 
 ## Technology Constraints
 
@@ -97,6 +125,9 @@ coder/
 - **Test-First Development**: Write tests alongside or before implementation
 - **Minimum Coverage**: Each new module must have at least 80% test coverage
 - **Test Organization**: Mirror source structure in tests/ directory (test_module.py for module.py)
+- **Coverage Enforcement**: All test runs must show coverage and fail if below 80%
+- **Coverage Commands**: 
+  - `pytest tests/ --cov=src --cov-fail-under=80 --cov-report=term-missing`
 
 ## Security & Safety
 

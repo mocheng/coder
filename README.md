@@ -54,12 +54,15 @@ Configure the tool using environment variables in `.env`:
 
 ## Testing
 
-Run unit tests:
+Run unit tests with coverage:
 ```bash
-python -m pytest tests/ -v
-# or with unittest
-python -m unittest discover tests/
+# Run tests with coverage (minimum 80% required)
+
+```bash
+pytest tests/ --cov=src --cov-fail-under=80 --cov-report=term-missing
 ```
+
+**Coverage Requirement**: All code must maintain minimum 80% test coverage.
 
 ## Project Structure
 

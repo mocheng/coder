@@ -63,7 +63,12 @@ class LLMClient:
                 **self.default_params
             )
             
-            return response.choices[0].message.content
+            # Debug: Check if response content is None
+            content = response.choices[0].message.content
+            if content is None:
+                raise Exception("LLM returned None content - possible API issue")
+            
+            return content
             
         except Exception as e:
             raise Exception(f"LLM API error: {str(e)}")

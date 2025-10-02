@@ -4,7 +4,7 @@
 import unittest
 import tempfile
 import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from typer.testing import CliRunner
 from src.main import app
 from src.llm_client import LLMClient
@@ -34,8 +34,16 @@ class TestCodeReview(unittest.TestCase):
                 result = self.runner.invoke(app, ["cr", temp_file])
                 self.assertEqual(result.exit_code, 0)
                 self.assertIn("File Information", result.stdout)
+                self.assertIn("CODE REVIEW RESULTS", result.stdout)
         finally:
             os.unlink(temp_file)
+    
+    def test_cr_with_directory_fails(self):
+        """Test cr command with directory (should fail)"""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            result = self.runner.invoke(app, ["cr", temp_dir])
+            self.assertEqual(result.exit_code, 1)
+            self.assertIn("is not a file", result.stdout)
     
     def test_parse_line_references(self):
         """Test parsing line references from review text"""

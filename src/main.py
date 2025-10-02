@@ -4,12 +4,13 @@
 from pathlib import Path
 import typer
 from rich.console import Console
-from rich.markdown import Markdown
 from rich.panel import Panel
-from rich.text import Text
-from .tool_ops import read_file_content, is_text_file
+from .tool_ops import is_text_file
+from .input_parser import InputParser
+from .source_collector import SourceCollector
+from .review_orchestrator import ReviewOrchestrator
+from .results_formatter import ResultsFormatter
 from .llm_client import LLMClient
-from .code_context import display_code_with_feedback
 
 
 app = typer.Typer(help="CLI Coding Agent - LLM-powered code assistance")
@@ -27,57 +28,44 @@ def main(ctx: typer.Context):
 @app.command()
 def cr(file: str):
     """Code review for a file"""
-    file_path = Path(file)
     
-    # Basic validation
-    if not file_path.exists():
-        console.print(f"[red]Error: File '{file}' not found[/red]")
-        raise typer.Exit(1)
-    
-    if not file_path.is_file():
-        console.print(f"[red]Error: '{file}' is not a file[/red]")
-        raise typer.Exit(1)
-    
-    # Check if it's a text file
-    if not is_text_file(file):
-        console.print(f"[yellow]Warning: '{file}' may not be a text file[/yellow]")
+    # Initialize components
+    input_parser = InputParser()
+    source_collector = SourceCollector()
+    formatter = ResultsFormatter(console)
     
     try:
-        # Read file content
-        content = read_file_content(file)
+        # Parse and validate input
+        review_input = input_parser.parse(file)
         
-        # Display file info with rich formatting
-        info_text = Text()
-        info_text.append("📁 File: ", style="bold")
-        info_text.append(file, style="cyan")
-        info_text.append(f"\n📏 Size: {len(content)} characters")
-        info_text.append(f"\n📄 Lines: {len(content.splitlines())}")
+        # Check if it's a text file
+        if not is_text_file(file):
+            console.print(f"[yellow]Warning: '{file}' may not be a text file[/yellow]")
         
-        console.print(Panel(info_text, title="File Information", border_style="blue"))
+        # Collect source file
+        source_file = source_collector.collect(review_input)
         
-        # Initialize LLM client and perform code review
-        console.print("\n🤖 Analyzing code with AI...", style="bold yellow")
+        # Display file info
+        formatter.display_file_info(source_file)
+        
+        # Initialize LLM client and orchestrator
+        formatter.display_progress("🤖 Analyzing code with AI...")
         
         try:
             llm_client = LLMClient()
-            review_result = llm_client.code_review(content, file)
+            orchestrator = ReviewOrchestrator(llm_client)
             
-            # Display review results with rich markdown formatting
-            console.print("\n")
-            console.print(Panel(
-                Markdown(review_result),
-                title="📋 CODE REVIEW RESULTS",
-                border_style="green"
-            ))
+            # Perform review
+            result = orchestrator.review(source_file)
             
-            # Display code context with line-specific feedback
-            display_code_with_feedback(console, content, review_result, file)
+            # Display results
+            formatter.display_review_result(result, source_file)
             
         except Exception as llm_error:
             console.print(f"\n[red]⚠️  LLM Error: {llm_error}[/red]")
             
             # Show file preview as fallback
-            lines = content.splitlines()
+            lines = source_file.content.splitlines()
             preview_lines = lines[:10]
             preview_content = "\n".join(f"{i:3}: {line}" for i, line in enumerate(preview_lines, 1))
             
@@ -90,13 +78,7 @@ def cr(file: str):
                 border_style="yellow"
             ))
         
-    except FileNotFoundError as e:
-        console.print(f"[red]Error: {e}[/red]")
-        raise typer.Exit(1)
-    except PermissionError as e:
-        console.print(f"[red]Error: {e}[/red]")
-        raise typer.Exit(1)
-    except UnicodeDecodeError as e:
+    except ValueError as e:
         console.print(f"[red]Error: {e}[/red]")
         raise typer.Exit(1)
     except Exception as e:

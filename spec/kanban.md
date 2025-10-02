@@ -24,21 +24,21 @@
 
 ## Ready
 
-### K008: Architecture Refinement for Multi-Scenario Code Review
-**Description:** Refactor current single-file architecture to support multiple review scenarios
-**Acceptance Criteria:**
-- Design modular components (Input Parser, Source Collector, Review Orchestrator, Results Formatter)
-- Define clear interfaces and data flow between components
-- Refactor existing code to use new architecture
-- Maintain backward compatibility with current `cr` command
-- Create extensible foundation for future review scenarios
-- Update architecture documentation
-
 ## In Progress
 
 ## Review
 
 ## Done
+
+### K008: Architecture Refinement for Multi-Scenario Code Review
+**Description:** Refactor current single-file architecture to support multiple review scenarios
+**Acceptance Criteria:**
+- Design modular components (Input Parser, Source Collector, Review Orchestrator, Results Formatter) ✓
+- Define clear interfaces and data flow between components ✓
+- Refactor existing code to use new architecture ✓
+- Maintain backward compatibility with current `cr` command ✓
+- Create extensible foundation for future review scenarios ✓
+- Update architecture documentation ✓
 
 ### K007: Source Code Context Display
 **Description:** Show source code context with line numbers alongside review feedback
