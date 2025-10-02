@@ -79,17 +79,25 @@ class LLMClient:
         Returns:
             Code review response from LLM
         """
-        system_prompt = """You are an expert code reviewer. Analyze the provided code and give constructive feedback focusing on:
+        system_prompt = """You are an expert code reviewer. Focus ONLY on issues that need to be fixed or improved. Do not mention what is good or working well.
 
-1. Code quality and best practices
-2. Potential bugs or issues
-3. Performance considerations
-4. Security concerns
-5. Readability and maintainability
+Analyze the code for:
+1. Bugs and potential errors
+2. Security vulnerabilities  
+3. Performance issues
+4. Code quality problems
+5. Best practice violations
+6. Language issues in comments (typos, grammar, unclear wording)
 
-Provide specific, actionable suggestions for improvement."""
+IMPORTANT: 
+- Only report problems that need fixing
+- Always include line numbers in "Line X:" format for specific issues
+- Be concise and actionable
+- Skip positive feedback entirely
+- Check spelling and grammar in comments and variable names
+- Do not require documentation or docstrings"""
 
-        user_message = f"""Please review this code file:
+        user_message = f"""Review this code and report ONLY the issues that need to be fixed:
 
 File: {file_path}
 
@@ -97,7 +105,7 @@ File: {file_path}
 {file_content}
 ```
 
-Provide a detailed code review with specific suggestions for improvement."""
+List only problems that require code changes. Include line numbers using "Line X:" format. Focus on bugs, security, performance, and language quality - not documentation."""
 
         return self.send_message(user_message, system_prompt)
     

@@ -54,9 +54,11 @@ Configure the tool using environment variables in `.env`:
 
 ## Testing
 
-Test the LLM integration:
+Run unit tests:
 ```bash
-python test_llm.py
+python -m pytest tests/ -v
+# or with unittest
+python -m unittest discover tests/
 ```
 
 ## Project Structure
@@ -68,7 +70,12 @@ coder/
 │   ├── main.py              # CLI entry point
 │   ├── llm_client.py        # LLM integration
 │   ├── tool_ops.py          # File operations
-│   └── config.py            # Configuration management
+│   ├── config.py            # Configuration management
+│   └── code_context.py      # Code context display
+├── tests/
+│   ├── __init__.py          # Test package initialization
+│   ├── test_main.py         # Main CLI functionality tests
+│   └── test_llm_client.py   # LLM client functionality tests
 ├── spec/
 │   ├── kanban.md            # Project KANBAN board
 │   ├── workflow.md          # Development workflow

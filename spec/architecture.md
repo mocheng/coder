@@ -57,8 +57,41 @@ Build a command-line tool that leverages LLM capabilities to assist with code re
 - **Language:** Python 3.12+
 - **LLM Library:** litellm (unified interface)
 - **Default Model:** gemini/gemini-1.5-flash
-- **CLI Framework:** click or argparse
+- **CLI Framework:** typer
+- **UI Library:** rich (terminal formatting)
+- **Testing:** unittest/pytest
 - **Dependencies:** Minimal, prefer standard library
+
+## Project Structure
+
+```
+coder/
+├── src/                     # Source code
+│   ├── __init__.py          # Package initialization
+│   ├── main.py              # CLI entry point (typer)
+│   ├── llm_client.py        # LLM integration (litellm)
+│   ├── tool_ops.py          # File operations
+│   ├── config.py            # Configuration management
+│   └── code_context.py      # Code context display (rich)
+├── tests/                   # Unit tests
+│   ├── __init__.py          # Test package initialization
+│   └── test_main.py         # Main CLI functionality tests
+├── spec/                    # Project specifications
+│   ├── kanban.md            # Project KANBAN board
+│   ├── workflow.md          # Development workflow
+│   └── architecture.md      # System architecture
+├── requirements.txt         # Python dependencies
+├── .env.example            # Environment variables template
+├── .gitignore              # Git ignore rules
+└── README.md               # Project documentation
+```
+
+## Testing Strategy
+
+- **Unit Tests**: Located in `tests/` directory following standard Python conventions
+- **Test Discovery**: Use `python -m unittest discover tests/` or `pytest tests/`
+- **Mocking**: Mock LLM API calls to avoid external dependencies during testing
+- **Coverage**: Test CLI commands, core functions, and error handling
 
 ## Security & Safety
 

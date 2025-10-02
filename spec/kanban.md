@@ -6,19 +6,19 @@
 
 ## In Progress
 
-### K007: Source Code Context Display
-**Description:** Show source code context with line numbers alongside review feedback
-**Acceptance Criteria:**
-- Modify LLM prompt to request line number references in feedback
-- Parse LLM responses to extract line-specific comments
-- Use rich to display source code snippets with line numbers
-- Highlight referenced lines in context (show ±3 lines around issues)
-- Format as side-by-side or sequential display: code snippet → feedback
-- Integrate with existing tool_ops.py file reading functionality
-
 ## Review
 
 ## Done
+
+### K007: Source Code Context Display
+**Description:** Show source code context with line numbers alongside review feedback
+**Acceptance Criteria:**
+- Modify LLM prompt to request line number references in feedback ✓
+- Parse LLM responses to extract line-specific comments ✓
+- Use rich to display source code snippets with line numbers ✓
+- Highlight referenced lines in context (show ±3 lines around issues) ✓
+- Format as side-by-side or sequential display: code snippet → feedback ✓
+- Integrate with existing tool_ops.py file reading functionality ✓
 
 ### K006: Rich Terminal Output Integration
 **Description:** Replace plain markdown output with rich library for colorful, formatted terminal display

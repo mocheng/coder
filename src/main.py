@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """CLI Coding Agent - Main Entry Point"""
 
-import sys
 from pathlib import Path
 import typer
 from rich.console import Console
@@ -10,6 +9,7 @@ from rich.panel import Panel
 from rich.text import Text
 from .tool_ops import read_file_content, is_text_file
 from .llm_client import LLMClient
+from .code_context import display_code_with_feedback
 
 
 app = typer.Typer(help="CLI Coding Agent - LLM-powered code assistance")
@@ -69,6 +69,9 @@ def cr(file: str):
                 title="📋 CODE REVIEW RESULTS",
                 border_style="green"
             ))
+            
+            # Display code context with line-specific feedback
+            display_code_with_feedback(console, content, review_result, file)
             
         except Exception as llm_error:
             console.print(f"\n[red]⚠️  LLM Error: {llm_error}[/red]")
