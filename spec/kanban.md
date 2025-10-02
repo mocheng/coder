@@ -2,15 +2,29 @@
 
 ## Backlog
 
-### K009: Multi-File Code Review
-**Description:** Extend `cr` command to handle directories and multiple files
+### K009A: Directory Input Parsing for Multi-File Review
+**Description:** Extend input parsing to accept and validate directory paths
 **Acceptance Criteria:**
 - Accept directory paths in `cr` command
+- Validate directory exists and is accessible
+- Update Input Parser to handle directory review type
+- Maintain backward compatibility with single file input
+
+### K009B: File Discovery and Filtering
+**Description:** Implement recursive file discovery with extension filtering
+**Acceptance Criteria:**
 - Recursively find code files in directories
-- Review multiple files in batch with consolidated output
 - Filter by file extensions (configurable)
-- Handle large codebases efficiently
+- Handle large codebases efficiently (limit file count)
+- Return structured file list for review
+
+### K009C: Batch Review Display and Results
+**Description:** Implement consolidated display for multiple file reviews
+**Acceptance Criteria:**
+- Review multiple files in batch
 - Show per-file and summary results
+- Display progress during multi-file processing
+- Format results for readability
 
 ## Ready
 

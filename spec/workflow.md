@@ -50,12 +50,26 @@ Work items are tracked in markdown files:
 1. **Analyze Backlog** - Review all tasks in Backlog column
 2. **Assess Priority** - Evaluate business value and user impact
 3. **Assess Feasibility** - Evaluate technical complexity and dependencies
-4. **Propose Candidates** - Present high priority + high feasibility tasks to user
-5. **Get Approval** - Wait for user confirmation on task selection
-6. **Move to Ready** - Transfer approved tasks to Ready column
-7. **Git Commit** - Commit the kanban.md changes
+4. **Evaluate Task Size** - Check if task scope is appropriate for single implementation
+5. **Split Large Tasks** - If >5 acceptance criteria or >5 files affected, propose splitting
+6. **Propose Candidates** - Present high priority + high feasibility + appropriately-sized tasks to user
+7. **Get Approval** - Wait for user confirmation on task selection or splitting
+8. **Move to Ready** - Transfer approved tasks to Ready column
+9. **Git Commit** - Commit the kanban.md changes with file-focused message
    - Format: `triage: Move [K###] to Ready for development`
-8. **Ask for Confirmation** - Explicitly ask user if they want to proceed to Code Process
+   - Body: Brief description of what will be implemented
+10. **Ask for Confirmation** - Explicitly ask user if they want to proceed to Code Process
+
+**Task Granularity Rules:**
+- **Single responsibility** - Each task should focus on one specific feature or change
+- **Maximum scope** - No more than 3-5 files modified per task
+- **Split large tasks** - If acceptance criteria has >5 items, split into multiple tasks
+- **Independent tasks** - Each task should be completable and testable independently
+- **Clear boundaries** - Avoid tasks that mix UI, backend, and infrastructure changes
+- **Task size indicators**:
+  - Small: 1-2 files, 1-3 acceptance criteria, <200 lines of code
+  - Medium: 3-5 files, 3-5 acceptance criteria, 200-500 lines of code
+  - Large: Split into smaller tasks
 
 **Trigger:** User requests triage or when Ready column has less than 2 tasks
 
@@ -72,6 +86,21 @@ Work items are tracked in markdown files:
 7. **Verify** - Test functionality works and all tests pass with minimum 80% coverage
 8. **Move to Review** - Present working result to user
 9. **Ask for Confirmation** - Explicitly ask user for approval to move to Done
+10. **Git Commit** - Upon approval, commit with file-focused message
+    - **Format**: `[TaskID] Brief description of actual changes`
+    - **Body**: List key files changed and their purpose
+    - **Focus on code**: What was added, modified, or removed
+    - **Avoid chat references**: Don't mention conversations or user requests
+    - **Example**:
+      ```
+      [K010] Add git integration for code review
+      
+      - Created GitOperations module for git command execution
+      - Extended Input Parser to handle --diff, --commit, --branch options
+      - Updated Source Collector to parse git diff output
+      - Enhanced Results Formatter for git-specific displays
+      - Added 15 unit tests for git functionality
+      ```
 
 **Trigger:** User requests code execution and Ready column has tasks
 
@@ -114,6 +143,23 @@ Work items are tracked in markdown files:
 - **Question-first approach** - When uncertain, ask questions before taking action
 - **No assumptions** - Never assume user intent; always confirm understanding
 - **Clear options** - Present multiple choices when applicable and let user decide
+
+### Git Commit Standards
+- **Commit messages** must summarize actual file changes, not chat history
+- **Format**: `[TaskID] Brief description of changes`
+- **Body**: List key files changed and their purpose
+- **Focus on code changes**: What was added, modified, or removed
+- **Avoid chat references**: Don't mention "user requested" or conversation details
+- **Example**: 
+  ```
+  [K010] Add git integration for code review
+  
+  - Created GitOperations module for git command execution
+  - Extended Input Parser to handle --diff, --commit, --branch options
+  - Updated Source Collector to parse git diff output
+  - Enhanced Results Formatter for git-specific displays
+  - Added 15 unit tests for git functionality
+  ```
 
 ### Code Standards
 - **Minimal viable code** - Write only what's needed
