@@ -11,6 +11,7 @@ Build a command-line tool that leverages LLM capabilities to assist with code re
 3. **Cost Conscious:** Use free/cheap models (gemini-flash) as default
 4. **Extensible:** Support multiple LLM providers through unified interface
 5. **Safe Operations:** Never modify files without explicit user consent
+6. **Test-Driven Development:** Every feature must include comprehensive unit tests
 
 ## High-Level Architecture
 
@@ -92,6 +93,10 @@ coder/
 - **Test Discovery**: Use `python -m unittest discover tests/` or `pytest tests/`
 - **Mocking**: Mock LLM API calls to avoid external dependencies during testing
 - **Coverage**: Test CLI commands, core functions, and error handling
+- **Mandatory Testing**: Every new feature must include corresponding unit tests
+- **Test-First Development**: Write tests alongside or before implementation
+- **Minimum Coverage**: Each new module must have at least 80% test coverage
+- **Test Organization**: Mirror source structure in tests/ directory (test_module.py for module.py)
 
 ## Security & Safety
 

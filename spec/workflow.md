@@ -68,9 +68,10 @@ Work items are tracked in markdown files:
 3. **Analyze** - Understand requirements and constraints
 4. **Design** - Plan minimal implementation approach
 5. **Implement** - Write essential code only
-6. **Verify** - Test functionality works
-7. **Move to Review** - Present working result to user
-8. **Ask for Confirmation** - Explicitly ask user for approval to move to Done
+6. **Write Tests** - Create comprehensive unit tests for all new functionality
+7. **Verify** - Test functionality works and all tests pass
+8. **Move to Review** - Present working result to user
+9. **Ask for Confirmation** - Explicitly ask user for approval to move to Done
 
 **Trigger:** User requests code execution and Ready column has tasks
 
@@ -113,6 +114,9 @@ Work items are tracked in markdown files:
 - **LLM-first approach** - Let LLM handle complex analysis
 - **Iterative refinement** - Improve based on feedback
 - **Clean structure** - Maintain clear separation of concerns
+- **Comprehensive testing** - Every feature must include unit tests
+- **Test coverage** - Aim for minimum 80% coverage on new code
+- **Test organization** - Follow tests/ directory structure mirroring src/
 
 ### Decision Making
 - Ask for clarification on ambiguous requirements
