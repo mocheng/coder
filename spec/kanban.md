@@ -24,8 +24,6 @@
 
 ## Ready
 
-## In Progress
-
 ### K008: Architecture Refinement for Multi-Scenario Code Review
 **Description:** Refactor current single-file architecture to support multiple review scenarios
 **Acceptance Criteria:**
@@ -36,15 +34,7 @@
 - Create extensible foundation for future review scenarios
 - Update architecture documentation
 
-### K008: Multi-File Code Review
-**Description:** Extend `cr` command to handle directories and multiple files
-**Acceptance Criteria:**
-- Accept directory paths in `cr` command
-- Recursively find code files in directories
-- Review multiple files in batch with consolidated output
-- Filter by file extensions (configurable)
-- Handle large codebases efficiently
-- Show per-file and summary results
+## In Progress
 
 ## Review
 
