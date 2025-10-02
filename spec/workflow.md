@@ -22,6 +22,7 @@ Work items are tracked in markdown files:
 - **WIP Limit:** Maximum 1 task in progress at any time
 - **Continuous delivery:** Each task should produce working functionality
 - **Just-in-time planning:** Define tasks as needed, not all upfront
+- **Ask for Confirmation:** Explicitly ask user if they want to proceed to next workflow
 
 ## AI Work Processes
 
@@ -39,7 +40,6 @@ Work items are tracked in markdown files:
    - **Wait for user confirmation** before actually updating kanban.md
 6. **Git Commit** - Commit the updated kanban.md with new tasks
    - Format: `feat: Add new tasks [K###-K###] to backlog`
-7. **Ask for Confirmation** - Explicitly ask user if they want to proceed to next workflow step
 
 **Trigger:** User requests feature brainstorming or when Backlog is empty
 
@@ -54,7 +54,7 @@ Work items are tracked in markdown files:
 5. **Get Approval** - Wait for user confirmation on task selection
 6. **Move to Ready** - Transfer approved tasks to Ready column
 7. **Git Commit** - Commit the kanban.md changes
-   - Format: `chore: Move [K###] to Ready for development`
+   - Format: `triage: Move [K###] to Ready for development`
 8. **Ask for Confirmation** - Explicitly ask user if they want to proceed to Code Process
 
 **Trigger:** User requests triage or when Ready column has less than 2 tasks
@@ -80,8 +80,8 @@ Work items are tracked in markdown files:
 **Steps:**
 1. **Move to Done** - Update KANBAN board from Review to Done
 2. **Git Commit** - Commit all changes with descriptive message
-   - Format: `feat: [TaskID] Task Title`
-   - Example: `feat: [K002] Basic CLI Structure`
+   - Format: `[TaskID] Task Title`
+   - Example: `[K002] Basic CLI Structure`
    - Include all modified/created files
 3. **Confirm Completion** - Notify user of commit and completion
 4. **Ask for Confirmation** - Explicitly ask user what to do next (new features, triage, etc.)
