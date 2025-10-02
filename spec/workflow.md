@@ -96,6 +96,9 @@ Work items are tracked in markdown files:
 - **Before updating kanban.md** - Get explicit approval for any board changes
 - **Before starting implementation** - Confirm task selection and approach
 - **After completing work** - Get approval before moving to Done
+- **When any questions arise** - Always ask user for clarification instead of making assumptions
+- **For ambiguous requirements** - Request specific guidance before proceeding
+- **For design decisions** - Present options and wait for user choice
 
 ### Git Commit Requirements
 - **After feature brainstorming** - Commit new tasks added to backlog
@@ -108,6 +111,9 @@ Work items are tracked in markdown files:
 - **Wait for responses** - Never proceed without user input on interactive steps
 - **Status updates** - Clearly communicate current workflow position
 - **Next step proposals** - Always propose what to do next and wait for confirmation
+- **Question-first approach** - When uncertain, ask questions before taking action
+- **No assumptions** - Never assume user intent; always confirm understanding
+- **Clear options** - Present multiple choices when applicable and let user decide
 
 ### Code Standards
 - **Minimal viable code** - Write only what's needed
@@ -119,9 +125,11 @@ Work items are tracked in markdown files:
 - **Test organization** - Follow tests/ directory structure mirroring src/
 
 ### Decision Making
-- Ask for clarification on ambiguous requirements
-- Propose options when multiple approaches exist
-- Prioritize working software over perfect design
-- Focus on immediate user value
+- **Ask for clarification** on ambiguous requirements - never guess
+- **Present options** when multiple approaches exist - let user choose
+- **Confirm understanding** before proceeding with any implementation
+- **Question assumptions** - verify user intent explicitly
+- **Prioritize working software** over perfect design (after user confirmation)
+- **Focus on immediate user value** (as defined by user)
 
 
