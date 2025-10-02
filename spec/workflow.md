@@ -37,6 +37,9 @@ Work items are tracked in markdown files:
    - **Wait for user confirmation** on task details before proceeding
 5. **Add to Backlog** - Insert new tasks into Backlog column with proper IDs
    - **Wait for user confirmation** before actually updating kanban.md
+6. **Git Commit** - Commit the updated kanban.md with new tasks
+   - Format: `feat: Add new tasks [K###-K###] to backlog`
+7. **Ask for Confirmation** - Explicitly ask user if they want to proceed to next workflow step
 
 **Trigger:** User requests feature brainstorming or when Backlog is empty
 
@@ -50,6 +53,9 @@ Work items are tracked in markdown files:
 4. **Propose Candidates** - Present high priority + high feasibility tasks to user
 5. **Get Approval** - Wait for user confirmation on task selection
 6. **Move to Ready** - Transfer approved tasks to Ready column
+7. **Git Commit** - Commit the kanban.md changes
+   - Format: `chore: Move [K###] to Ready for development`
+8. **Ask for Confirmation** - Explicitly ask user if they want to proceed to Code Process
 
 **Trigger:** User requests triage or when Ready column has less than 2 tasks
 
@@ -64,6 +70,7 @@ Work items are tracked in markdown files:
 5. **Implement** - Write essential code only
 6. **Verify** - Test functionality works
 7. **Move to Review** - Present working result to user
+8. **Ask for Confirmation** - Explicitly ask user for approval to move to Done
 
 **Trigger:** User requests code execution and Ready column has tasks
 
@@ -77,8 +84,29 @@ Work items are tracked in markdown files:
    - Example: `feat: [K002] Basic CLI Structure`
    - Include all modified/created files
 3. **Confirm Completion** - Notify user of commit and completion
+4. **Ask for Confirmation** - Explicitly ask user what to do next (new features, triage, etc.)
 
 **Trigger:** User approves work in Review column
+
+## Workflow Control Rules
+
+### Mandatory Confirmations
+- **After each major workflow step** - Always ask user for confirmation to proceed
+- **Before updating kanban.md** - Get explicit approval for any board changes
+- **Before starting implementation** - Confirm task selection and approach
+- **After completing work** - Get approval before moving to Done
+
+### Git Commit Requirements
+- **After feature brainstorming** - Commit new tasks added to backlog
+- **After triage** - Commit task movements to Ready
+- **After completion** - Commit all implementation changes
+- **Never commit without user approval** - All commits require explicit or implicit user consent
+
+### Communication Protocol
+- **Explicit questions** - Always end workflow steps with clear questions
+- **Wait for responses** - Never proceed without user input on interactive steps
+- **Status updates** - Clearly communicate current workflow position
+- **Next step proposals** - Always propose what to do next and wait for confirmation
 
 ### Code Standards
 - **Minimal viable code** - Write only what's needed
