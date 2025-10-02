@@ -25,7 +25,22 @@ Work items are tracked in markdown files:
 
 ## AI Work Processes
 
-### 1. Triage Process (Interactive)
+### 1. Feature Brainstorming Process (Interactive)
+**Purpose:** Generate new feature ideas based on project objectives and architecture
+
+**Steps:**
+1. **Analyze Current State** - Review existing functionality and architecture
+2. **Identify Opportunities** - Consider user needs, technical improvements, and extensibility
+3. **Propose Features** - Present categorized feature suggestions with rationale
+   - **Wait for user feedback** on which features to pursue
+4. **Generate Tasks** - Create detailed work items for approved features
+   - **Wait for user confirmation** on task details before proceeding
+5. **Add to Backlog** - Insert new tasks into Backlog column with proper IDs
+   - **Wait for user confirmation** before actually updating kanban.md
+
+**Trigger:** User requests feature brainstorming or when Backlog is empty
+
+### 2. Triage Process (Interactive)
 **Purpose:** Analyze and prioritize tasks for execution readiness
 
 **Steps:**
@@ -38,7 +53,7 @@ Work items are tracked in markdown files:
 
 **Trigger:** User requests triage or when Ready column has less than 2 tasks
 
-### 2. Code Process (Autonomous)
+### 3. Code Process (Autonomous)
 **Purpose:** Execute tasks from Ready column
 
 **Steps:**
@@ -52,7 +67,7 @@ Work items are tracked in markdown files:
 
 **Trigger:** User requests code execution and Ready column has tasks
 
-### 3. Completion Process (On User Approval)
+### 4. Completion Process (On User Approval)
 **Purpose:** Finalize completed work with proper version control
 
 **Steps:**
