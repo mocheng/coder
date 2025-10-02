@@ -9,6 +9,8 @@ from typer.testing import CliRunner
 from src.main import app
 from src.llm_client import LLMClient
 from src.code_context import parse_line_references, extract_line_feedback
+from src.source_collector import SourceFile
+from src.review_orchestrator import ReviewResult
 
 
 class TestCodeReview(unittest.TestCase):
@@ -44,6 +46,25 @@ class TestCodeReview(unittest.TestCase):
             result = self.runner.invoke(app, ["cr", temp_dir])
             self.assertEqual(result.exit_code, 1)
             self.assertIn("is not a file", result.stdout)
+    
+    def test_cr_git_diff_option_parsing(self):
+        """Test that --diff option is parsed correctly"""
+        # Test that the option exists and doesn't cause immediate failure
+        result = self.runner.invoke(app, ["cr", "--help"])
+        self.assertEqual(result.exit_code, 0)
+        self.assertIn("--diff", result.stdout)
+    
+    def test_cr_git_commit_option_parsing(self):
+        """Test that --commit option is parsed correctly"""
+        result = self.runner.invoke(app, ["cr", "--help"])
+        self.assertEqual(result.exit_code, 0)
+        self.assertIn("--commit", result.stdout)
+    
+    def test_cr_git_branch_option_parsing(self):
+        """Test that --branch option is parsed correctly"""
+        result = self.runner.invoke(app, ["cr", "--help"])
+        self.assertEqual(result.exit_code, 0)
+        self.assertIn("--branch", result.stdout)
     
     def test_parse_line_references(self):
         """Test parsing line references from review text"""

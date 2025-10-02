@@ -14,21 +14,21 @@
 
 ## Ready
 
-### K010: Git Integration for Code Review
-**Description:** Add git-aware code review for changes and diffs
-**Acceptance Criteria:**
-- Add `cr --diff` option to review staged changes
-- Add `cr --commit <hash>` to review specific commit
-- Add `cr --branch <branch>` to review branch changes
-- Parse git diff output and focus review on changed lines
-- Show context around changed code
-- Integrate with existing line-specific feedback system
-
 ## In Progress
 
 ## Review
 
 ## Done
+
+### K010: Git Integration for Code Review
+**Description:** Add git-aware code review for changes and diffs
+**Acceptance Criteria:**
+- Add `cr --diff` option to review staged changes ✓
+- Add `cr --commit <hash>` to review specific commit ✓
+- Add `cr --branch <branch>` to review branch changes ✓
+- Parse git diff output and focus review on changed lines ✓
+- Show context around changed code ✓
+- Integrate with existing line-specific feedback system ✓
 
 ### K008: Architecture Refinement for Multi-Scenario Code Review
 **Description:** Refactor current single-file architecture to support multiple review scenarios
