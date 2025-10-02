@@ -4,6 +4,7 @@
 import sys
 from pathlib import Path
 import typer
+from tool_ops import read_file_content, is_text_file
 
 
 app = typer.Typer(help="CLI Coding Agent - LLM-powered code assistance")
@@ -22,7 +23,7 @@ def cr(file: str):
     """Code review for a file"""
     file_path = Path(file)
     
-    # Basic validation
+    # Basic validation (already exists in tool_ops, but keep for early feedback)
     if not file_path.exists():
         typer.echo(f"Error: File '{file}' not found", err=True)
         raise typer.Exit(1)
@@ -31,9 +32,43 @@ def cr(file: str):
         typer.echo(f"Error: '{file}' is not a file", err=True)
         raise typer.Exit(1)
     
-    # Placeholder for actual code review functionality
-    typer.echo(f"Code review for: {file}")
-    typer.echo("(LLM integration coming soon)")
+    # Check if it's a text file
+    if not is_text_file(file):
+        typer.echo(f"Warning: '{file}' may not be a text file", err=True)
+    
+    try:
+        # Read file content
+        content = read_file_content(file)
+        
+        # Display basic file info and content preview
+        typer.echo(f"Code review for: {file}")
+        typer.echo(f"File size: {len(content)} characters")
+        typer.echo(f"Lines: {len(content.splitlines())}")
+        typer.echo("\n--- File Content Preview ---")
+        
+        # Show first 10 lines as preview
+        lines = content.splitlines()
+        preview_lines = lines[:10]
+        for i, line in enumerate(preview_lines, 1):
+            typer.echo(f"{i:3}: {line}")
+        
+        if len(lines) > 10:
+            typer.echo(f"... ({len(lines) - 10} more lines)")
+        
+        typer.echo("\n(LLM integration coming soon)")
+        
+    except FileNotFoundError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(1)
+    except PermissionError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(1)
+    except UnicodeDecodeError as e:
+        typer.echo(f"Error: {e}", err=True)
+        raise typer.Exit(1)
+    except Exception as e:
+        typer.echo(f"Unexpected error: {e}", err=True)
+        raise typer.Exit(1)
 
 
 if __name__ == "__main__":

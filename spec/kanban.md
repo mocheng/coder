@@ -9,18 +9,18 @@
 - Handle API responses and errors
 - Basic configuration for model selection
 
-### K004: Tool Operations
-**Description:** File reading and basic tool operations
-**Acceptance Criteria:**
-- Read file content safely
-- Handle file not found errors
-- Support common text file formats
-
 ## Ready
 
 ## In Progress
 
 ## Review
+
+### K004: Tool Operations
+**Description:** File reading and basic tool operations
+**Acceptance Criteria:**
+- Read file content safely ✓
+- Handle file not found errors ✓
+- Support common text file formats ✓
 
 ## Done
 
