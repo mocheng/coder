@@ -2,14 +2,6 @@
 
 ## Backlog
 
-### K005: Integrate LLM with CR Command
-**Description:** Connect file reading with LLM to provide actual code review
-**Acceptance Criteria:**
-- Send file content to LLM for code review
-- Display LLM response instead of placeholder message
-- Handle LLM API errors gracefully
-- Provide meaningful code review output
-
 ## Ready
 
 ## In Progress
@@ -45,3 +37,11 @@
 - Can send text to gemini-flash model ✓
 - Handle API responses and errors ✓
 - Basic configuration for model selection ✓
+
+### K005: Integrate LLM with CR Command
+**Description:** Connect file reading with LLM to provide actual code review
+**Acceptance Criteria:**
+- Send file content to LLM for code review ✓
+- Display LLM response instead of placeholder message ✓
+- Handle LLM API errors gracefully ✓
+- Provide meaningful code review output ✓

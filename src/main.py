@@ -4,7 +4,8 @@
 import sys
 from pathlib import Path
 import typer
-from tool_ops import read_file_content, is_text_file
+from .tool_ops import read_file_content, is_text_file
+from .llm_client import LLMClient
 
 
 app = typer.Typer(help="CLI Coding Agent - LLM-powered code assistance")
@@ -40,22 +41,37 @@ def cr(file: str):
         # Read file content
         content = read_file_content(file)
         
-        # Display basic file info and content preview
+        # Display basic file info
         typer.echo(f"Code review for: {file}")
         typer.echo(f"File size: {len(content)} characters")
         typer.echo(f"Lines: {len(content.splitlines())}")
-        typer.echo("\n--- File Content Preview ---")
         
-        # Show first 10 lines as preview
-        lines = content.splitlines()
-        preview_lines = lines[:10]
-        for i, line in enumerate(preview_lines, 1):
-            typer.echo(f"{i:3}: {line}")
+        # Initialize LLM client and perform code review
+        typer.echo("\n🤖 Analyzing code with AI...")
         
-        if len(lines) > 10:
-            typer.echo(f"... ({len(lines) - 10} more lines)")
-        
-        typer.echo("\n(LLM integration coming soon)")
+        try:
+            llm_client = LLMClient()
+            review_result = llm_client.code_review(content, file)
+            
+            typer.echo("\n" + "="*60)
+            typer.echo("📋 CODE REVIEW RESULTS")
+            typer.echo("="*60)
+            typer.echo(review_result)
+            typer.echo("="*60)
+            
+        except Exception as llm_error:
+            typer.echo(f"\n⚠️  LLM Error: {llm_error}", err=True)
+            typer.echo("\n📄 File Content Preview (LLM unavailable):")
+            typer.echo("-" * 40)
+            
+            # Show first 10 lines as fallback
+            lines = content.splitlines()
+            preview_lines = lines[:10]
+            for i, line in enumerate(preview_lines, 1):
+                typer.echo(f"{i:3}: {line}")
+            
+            if len(lines) > 10:
+                typer.echo(f"... ({len(lines) - 10} more lines)")
         
     except FileNotFoundError as e:
         typer.echo(f"Error: {e}", err=True)

@@ -33,13 +33,13 @@ cp .env.example .env
 ### Code Review
 Review a single file:
 ```bash
-python src/main.py cr path/to/your/file.py
+python -m src.main cr path/to/your/file.py
 ```
 
 ### Help
 Show available commands:
 ```bash
-python src/main.py --help
+python -m src.main --help
 ```
 
 ## Configuration
